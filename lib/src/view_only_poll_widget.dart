@@ -7,6 +7,9 @@ import 'package:intl/intl.dart';
 /// It provides various customization options for styling and displaying
 /// the poll data.
 class ViewOnlyPollWidget extends StatelessWidget {
+  /// The ID of the poll.
+  final int? id;
+
   /// Whether reselection of options is allowed (not applicable in view-only mode).
   final bool allowReselection;
 
@@ -107,9 +110,10 @@ class ViewOnlyPollWidget extends StatelessWidget {
     required this.options,
     required this.votes,
     required this.totalVotes,
-    this.showPercentages = true,
     required this.startDate,
     required this.endDate,
+    this.showPercentages = true,
+    this.id,
     this.allowReselection = false,
     this.heightBetweenTitleAndOptions = 10,
     this.heightBetweenOptions = 12,

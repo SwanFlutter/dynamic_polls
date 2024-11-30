@@ -14,13 +14,13 @@ Private Polls: Create private polls that only specific users can vote on.
 
 Stream Integration: Integrate with a stream to handle vote updates and send data to a server.
 
-- CustomPoll
+- DynamicPoll
 
 ![custompoll](https://github.com/user-attachments/assets/8d5a5d63-67b1-42d0-acb6-964738159f18)
 
 
 ```dart
-CustomPoll(
+DynamicPoll(
                     title: 'کدام زبان برنامه‌نویسی محبوب‌تر است؟',
                     private: false,
                     allowReselection: false,
@@ -89,7 +89,7 @@ CustomPoll(
                  
 ```
 ```dart
-                  CustomPoll(
+                  DynamicPoll(
                     private: false,
                     allowReselection: true,
                     showPercentages: false,
@@ -119,13 +119,13 @@ CustomPoll(
                   ),
 ```
 
-- CustomPoll.polls
+- DynamicPoll.polls
 
 ![polls](https://github.com/user-attachments/assets/023e1dbf-47c4-4ad6-be0c-480df9edfbde)
 
 
 ```dart
-CustomPoll.polls(
+DynamicPoll.polls(
         title: 'How old are you?',
        options: ['18-25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56-60', '61-65', '66-70'],
      onOptionSelected: (int index) {},
@@ -133,7 +133,7 @@ CustomPoll.polls(
   ),
 ```
 
-- CustomPoll.radioBottomPolls
+- DynamicPoll.radioBottomPolls
 
 ![radioBottomPolls](https://github.com/user-attachments/assets/588f5d24-028c-4e03-8cdd-8b4b905edae7)
 
@@ -147,7 +147,7 @@ CustomPoll.radioBottomPolls(
   ),
 ```
 
-- CustomPoll.viewOnlyPollWidget
+- DynamicPoll.viewOnlyPollWidget
 
 ![onlyPolls](https://github.com/user-attachments/assets/c98f1dd9-afd9-4736-b8ad-bdd415b12d7b)
 
@@ -186,7 +186,7 @@ To use this package, add custom_poll as a dependency in your pubspec.yaml file.
 
 ```yaml
 dependencies:
-  custom_poll: ^1.0.0
+  custom_poll: ^0.0.1
 ```
 Then, import the package in your Dart code:
 
@@ -213,11 +213,6 @@ class _MyPageState extends State<MyPage> {
       // Send vote data to the server
       _sendToServer(voteData);
     });
-  }
-
-  void _handleVoteChange() {
-    final voteData = voteNotifier.value;
-    _sendToServer(voteData);
   }
 
   @override

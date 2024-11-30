@@ -8,6 +8,9 @@ import 'package:dynamic_polls/src/widget/radio_bottom_poll_option_widget.dart';
 import 'package:flutter/material.dart';
 
 class RadioBottomPolls extends StatefulWidget {
+  /// The ID of the poll.
+  final int? id;
+
   /// Whether users can reselect an option after voting.
   final bool allowReselection;
 
@@ -74,8 +77,9 @@ class RadioBottomPolls extends StatefulWidget {
     super.key,
     required this.title,
     required this.options,
-    this.totalVotes,
     required this.onOptionSelected,
+    this.totalVotes,
+    this.id,
     this.showPercentages = true,
     this.maximumOptions = 20,
     this.backgroundDecoration,

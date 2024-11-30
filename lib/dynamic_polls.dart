@@ -47,6 +47,9 @@ export 'package:dynamic_polls/src/tools/votes_text_style.dart';
 ///
 
 class DynamicPolls extends StatefulWidget {
+  /// The ID of the poll.
+  final int? id;
+
   /// Whether users can reselect an option after voting.
   final bool allowReselection;
 
@@ -128,10 +131,11 @@ class DynamicPolls extends StatefulWidget {
     super.key,
     required this.title,
     required this.options,
-    this.totalVotes,
     required this.startDate,
     required this.endDate,
     required this.onOptionSelected,
+    this.totalVotes,
+    this.id,
     this.showPercentages = true,
     this.maximumOptions = 20,
     this.backgroundDecoration,
