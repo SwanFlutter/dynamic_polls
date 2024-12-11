@@ -157,29 +157,68 @@ class DynamicPolls extends StatefulWidget {
             'maximumOptions must be greater than zero.');
 
   static Widget polls({
+    /// The ID of the poll.
+    final int? id,
+
+    /// Whether users can reselect an option after voting.
     final bool allowReselection = false,
+
+    /// The title of the poll.
     required final String title,
+
+    /// The list of options for the poll.
     required final List<String> options,
+
+    /// Whether the poll is private.
+    final bool private = false,
 
     /// The function takes the index of the selected option as an argument.
     required final Function(int) onOptionSelected,
+
+    /// The total number of votes cast in the poll.
     final int? totalVotes,
 
     /// The maximum number of options allowed in the poll.
     final num? maximumOptions = 20,
+
+    /// The decoration applied to the background of the poll.
     final Decoration? backgroundDecoration,
+
+    /// The height between the title and the options.
     final double? heightBetweenTitleAndOptions = 10,
+
+    /// The text displayed next to the vote count.
     final double? heightBetweenOptions = 12,
+
+    /// The text displayed next to the vote count.
     final String? votesText = 'Votes',
+
+    /// The name of the user who created the poll.
     final String? createdBy,
+
+    /// The name of the user who is allowed to vote.
     final String? userToVote,
+
+    /// The widget to display while the poll is loading.
     final Widget? loadingWidget,
+
+    /// Whether to show a timer for the poll duration.
     final Styles? allStyle,
+
+    /// A stream controller for handling vote updates.
     final StreamController<VoteData>? voteStream,
+
+    /// The height of the poll widget.
     final double? height,
+
+    /// The width of the poll widget.
     final double? width,
+
+    /// Whether to display the percentage of votes for each option.
+    final bool showPercentages = true,
   }) {
     return Polls(
+      id: id,
       title: title,
       options: options,
       totalVotes: totalVotes,
@@ -195,12 +234,17 @@ class DynamicPolls extends StatefulWidget {
       onOptionSelected: onOptionSelected,
       allStyle: allStyle,
       voteStream: voteStream,
+      private: private,
       height: height,
       width: width,
+      showPercentages: showPercentages,
     );
   }
 
   static Widget radioBottomPolls({
+    /// The ID of the poll.
+    final int? id,
+
     /// Whether users can reselect an option after voting.
     required final bool allowReselection,
 
@@ -266,29 +310,35 @@ class DynamicPolls extends StatefulWidget {
 
     /// The total number of votes cast in the poll.
     int? totalVotes,
+
+    /// The height of the progress bar.
+    final double? heightBetweenOptions = 10,
   }) {
     return RadioBottomPolls(
-        allowReselection: allowReselection,
-        title: title,
-        options: options,
-        backgroundDecoration: backgroundDecoration,
-        showPercentages: showPercentages,
-        heightBetweenTitleAndOptions: heightBetweenTitleAndOptions,
-        votesText: votesText,
-        createdBy: createdBy,
-        userToVote: userToVote,
-        private: private,
-        loadingWidget: loadingWidget,
-        onOptionSelected: onOptionSelected,
-        allStyle: allStyle,
-        maximumOptions: maximumOptions,
-        voteStream: voteStream,
-        height: height,
-        width: width,
-        heightProgress: heightProgress,
-        progressColor: progressColor,
-        backgroundProgressColor: backgroundProgressColor,
-        totalVotes: totalVotes);
+      id: id,
+      allowReselection: allowReselection,
+      title: title,
+      options: options,
+      backgroundDecoration: backgroundDecoration,
+      showPercentages: showPercentages,
+      heightBetweenTitleAndOptions: heightBetweenTitleAndOptions,
+      votesText: votesText,
+      createdBy: createdBy,
+      userToVote: userToVote,
+      private: private,
+      loadingWidget: loadingWidget,
+      onOptionSelected: onOptionSelected,
+      allStyle: allStyle,
+      maximumOptions: maximumOptions,
+      voteStream: voteStream,
+      height: height,
+      width: width,
+      heightProgress: heightProgress,
+      progressColor: progressColor,
+      backgroundProgressColor: backgroundProgressColor,
+      totalVotes: totalVotes,
+      heightBetweenOptions: heightBetweenOptions,
+    );
   }
 
   /// Creates a view-only poll widget.

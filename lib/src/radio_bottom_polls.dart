@@ -64,10 +64,13 @@ class RadioBottomPolls extends StatefulWidget {
   /// The width of the poll widget.
   final double? width;
 
+  /// The height of the progress bar.
   final double? heightProgress;
 
+  /// The color of the progress bar.
   final Color? progressColor;
 
+  /// The color of the background of the progress bar.
   final Color? backgroundProgressColor;
 
   /// The total number of votes cast in the poll.

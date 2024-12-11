@@ -186,7 +186,7 @@ To use this package, add custom_poll as a dependency in your pubspec.yaml file.
 
 ```yaml
 dependencies:
-  custom_poll: ^0.0.2
+  custom_poll: ^0.0.3
 ```
 Then, import the package in your Dart code:
 
