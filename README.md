@@ -186,7 +186,7 @@ To use this package, add custom_poll as a dependency in your pubspec.yaml file.
 
 ```yaml
 dependencies:
-  custom_poll: ^0.0.3
+  custom_poll: ^0.0.4
 ```
 Then, import the package in your Dart code:
 
@@ -205,6 +205,15 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   final voteStreamController = StreamController<VoteData>.broadcast();
+  final voteNotifier = ValueNotifier<VoteData>(
+  VoteData(
+    totalVotes: 0, 
+    optionVotes: {}, 
+    percentages: {},
+  )
+);
+
+
 
   @override
   void initState() {
@@ -217,6 +226,12 @@ class _MyPageState extends State<MyPage> {
 
   @override
   Widget build(BuildContext context) {
+     voteNotifier.addListener(() {
+      final voteData = voteNotifier.value;
+      print('all votes: ${voteData.totalVotes}');
+      print('votes for each option: ${voteData.optionVotes}');
+      print('percentages for each option: ${voteData.percentages}');
+    });
     return Scaffold(
       body: CustomPoll(
         title: 'What is your favorite color?',
@@ -227,10 +242,24 @@ class _MyPageState extends State<MyPage> {
           print('Selected option: $index');
         },
         voteStream: voteStreamController,
+         voteNotifier: voteNotifier,
         // Other parameters
       ),
     );
   }
+
+  // یا با ValueListenableBuilder
+ValueListenableBuilder<VoteData>(
+  valueListenable: voteNotifier,
+  builder: (context, voteData, child) {
+    return Column(
+      children: [
+        Text('all votes: ${voteData.totalVotes}'),
+   
+      ],
+    );
+  },
+)
 
   @override
   void dispose() {

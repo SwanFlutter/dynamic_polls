@@ -1,16 +1,36 @@
 import 'package:dynamic_polls/dynamic_polls.dart';
 import 'package:flutter/material.dart';
 
+/// A widget representing a single poll option in a dynamic polling system.
 class PollOptionWidget extends StatefulWidget {
+  /// The poll object containing the dynamic data for the poll.
   final DynamicPolls dynamicPoll;
+
+  /// The text for the poll option.
   final String option;
+
+  /// The number of votes received for this option.
   final int votes;
+
+  /// The total number of votes in the poll, used to calculate percentage.
   final int totalVotes;
+
+  /// The callback triggered when the option is tapped.
   final VoidCallback onTap;
+
+  /// Whether this option is currently selected. Defaults to `false`.
   final bool isSelected;
+
+  /// Whether the user has already voted in the poll.
   final bool hasVoted;
+
+  /// The index of this option in the poll options list.
   final int index;
+
+  /// Whether the option is clickable.
   final bool isClickable;
+
+  /// Creates an instance of [PollOptionWidget].
 
   const PollOptionWidget({
     super.key,

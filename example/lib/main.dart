@@ -36,6 +36,18 @@ class _HomePageState extends State<HomePage> {
   DateTime startDate = DateTime(2024, 11, 25, 10, 0);
   DateTime endDate = DateTime(2024, 11, 30, 18, 0);
 
+  final voteNotifier = ValueNotifier<VoteData>(VoteData(
+      totalVotes: 0,
+      optionVotes: {},
+      percentages: {},
+      selectedOption: 0,
+      userToVote: ''));
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
   // داده‌های نظرسنجی
   String title = "کدام زبان برنامه‌نویسی را بیشتر دوست دارید؟";
   List<String> options = ["دارت", "جاوا", "پایتون", "جاوا اسکریپت"];
@@ -49,6 +61,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    voteNotifier.addListener(() {
+      final voteData = voteNotifier.value;
+      print('all votes: ${voteData.totalVotes}');
+      print('votes for each option: ${voteData.optionVotes}');
+      print('percentages for each option: ${voteData.percentages}');
+    });
 
     return Scaffold(
       body: Directionality(
@@ -62,6 +80,66 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add a listener to the voteNotifier
+                      voteNotifier.addListener(() {
+                        // Add a listener to the voteNotifier to track changes in the vote data.
+
+                        // Get the current value of the vote data from the notifier.
+                        var voteData = voteNotifier.value;
+
+                        // Create an instance of the VoteData class with sample data.
+                        VoteData voteData1 = VoteData(
+                          totalVotes: 100, // Total number of votes
+                          optionVotes: {
+                            1: 50,
+                            2: 30,
+                            3: 20
+                          }, // Number of votes for each option
+                          percentages: {
+                            1: 50.0,
+                            2: 30.0,
+                            3: 20.0
+                          }, // Percentage of votes for each option
+                          selectedOption: 1, // The selected option
+                          userToVote:
+                              'John Doe', // The username or identifier of the voter
+                          userId: '12345', // Unique ID of the user
+                          country: 'USA', // Country of the user
+                          gender: 'Male', // Gender of the user
+                          age: 25, // Age of the user
+                          phone: 1234567890, // Phone number of the user
+                        );
+
+                        // Convert the VoteData object to a readable string and print it.
+                        print(voteData1.toString());
+
+                        // Create a new instance of VoteData with some modified fields using copyWith().
+                        var updatedVoteData = voteData1.copyWith(
+                            totalVotes: 120, selectedOption: 2);
+
+                        // Convert the VoteData object to a Map and print it.
+                        print(updatedVoteData.toMap());
+
+                        // Convert the VoteData object to JSON and print it.
+                        print(updatedVoteData.toJson());
+                        print(updatedVoteData.toJsonString());
+
+                        // Example: Access individual properties of the voteData1 object.
+                        print(
+                            'Total Votes: ${voteData1.totalVotes}'); // Prints the total number of votes.
+                        print(
+                            'Option Votes: ${voteData1.optionVotes}'); // Prints the votes for each option.
+                        print(
+                            'Percentages: ${voteData1.percentages}'); // Prints the percentages for each option.
+
+                        // Access the notifier's value to show the live data being tracked.
+                        print(voteData);
+                      });
+                    },
+                    child: const Text("Click me"),
+                  ),
                   DynamicPolls(
                     title: 'کدام زبان برنامه‌نویسی محبوب‌تر است؟',
                     private: false,
@@ -134,6 +212,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 50),
                   DynamicPolls(
+                    voteNotifier: voteNotifier,
                     private: false,
                     allowReselection: true,
                     showPercentages: false,

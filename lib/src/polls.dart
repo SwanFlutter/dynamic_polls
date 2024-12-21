@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:dynamic_polls/dynamic_polls.dart';
+import 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 import 'package:dynamic_polls/src/tools/utils/poll_data_utils.dart';
 import 'package:dynamic_polls/src/widget/polls_option_widget.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class Polls extends StatefulWidget {
   final String? createdBy;
 
   /// The name of the user who is allowed to vote.
-  final String? userToVote;
+  final UserDataModel? userData;
 
   /// Whether the poll is private.
   final bool private;
@@ -57,6 +58,9 @@ class Polls extends StatefulWidget {
 
   /// A stream controller for handling vote updates.
   final StreamController<VoteData>? voteStream;
+
+  /// A notifier for handling vote updates.
+  final ValueNotifier<VoteData>? voteNotifier;
 
   /// The height of the poll widget.
   final double? height;
@@ -93,13 +97,14 @@ class Polls extends StatefulWidget {
     this.heightBetweenTitleAndOptions = 10,
     this.votesText = 'Votes',
     this.createdBy,
-    this.userToVote,
+    this.userData,
     this.private = false,
     this.loadingWidget,
     this.voteStream,
     this.allStyle,
     this.height,
     this.width,
+    this.voteNotifier,
     double? heightBetweenOptions,
   })  : assert(options.length <= maximumOptions!,
             'Maximum $maximumOptions options allowed'),
@@ -130,9 +135,15 @@ class _PollsState extends State<Polls> {
         votes: votes,
         options: widget.options,
       ),
+      userToVote: widget.userData!.userToVote,
       selectedOption: selectedOption,
+      age: widget.userData!.age,
+      country: widget.userData!.country,
+      gender: widget.userData!.gender,
+      phone: widget.userData!.phone,
+      userId: widget.userData!.userId,
     );
-
+    widget.voteNotifier?.value = voteData;
     widget.voteStream?.add(voteData);
   }
 

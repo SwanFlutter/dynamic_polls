@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:dynamic_polls/dynamic_polls.dart';
+import 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 import 'package:dynamic_polls/src/tools/utils/poll_data_utils.dart';
 import 'package:dynamic_polls/src/widget/radio_bottom_poll_option_widget.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class RadioBottomPolls extends StatefulWidget {
   final String? createdBy;
 
   /// The name of the user who is allowed to vote.
-  final String? userToVote;
+  final UserDataModel? userData;
 
   /// Whether the poll is private.
   final bool private;
@@ -57,6 +58,9 @@ class RadioBottomPolls extends StatefulWidget {
 
   /// A stream controller for handling vote updates.
   final StreamController<VoteData>? voteStream;
+
+  /// A notifier for handling vote updates.
+  final ValueNotifier<VoteData>? voteNotifier;
 
   /// The height of the poll widget.
   final double? height;
@@ -90,7 +94,7 @@ class RadioBottomPolls extends StatefulWidget {
     this.heightBetweenTitleAndOptions = 10,
     this.votesText = 'Votes',
     this.createdBy,
-    this.userToVote,
+    this.userData,
     this.private = false,
     this.loadingWidget,
     this.voteStream,
@@ -99,6 +103,7 @@ class RadioBottomPolls extends StatefulWidget {
     this.width,
     this.heightProgress = 15,
     this.progressColor = Colors.blue,
+    this.voteNotifier,
     this.backgroundProgressColor = const Color.fromRGBO(224, 224, 224, 1),
     double? heightBetweenOptions,
   })  : assert(options.length <= maximumOptions!,
@@ -133,9 +138,20 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
         totalVotes: totalVotes, // Total votes for percentage calculation
         votes: votes, // Current votes
         options: widget.options, // Poll options
+        /// The name of the user who is allowed to vote.
       ),
       selectedOption: selectedOption, // Currently selected option
+
+      userToVote: widget.userData!.userToVote,
+
+      age: widget.userData!.age,
+      country: widget.userData!.country,
+      gender: widget.userData!.gender,
+      phone: widget.userData!.phone,
+      userId: widget.userData!.userId,
     );
+
+    widget.voteNotifier?.value = voteData;
 
     widget.voteStream?.add(voteData); // Add updated vote data to stream
   }

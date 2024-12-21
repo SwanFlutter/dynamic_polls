@@ -201,8 +201,9 @@ class ViewOnlyPollWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: pollOptionsBorderRadius ??
                                 BorderRadius.circular(8), // Border radius
-                            color: votedProgressColor?.withOpacity(0.3) ??
-                                Colors.blue.withOpacity(0.3), // Progress color
+                            color: votedProgressColor?.withValues(alpha: 0.3) ??
+                                Colors.blue
+                                    .withValues(alpha: 0.3), // Progress color
                           ),
                         ),
                       ),

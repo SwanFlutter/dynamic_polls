@@ -12,3 +12,11 @@
 * Fix Peraperty.
 * Edit API.
 
+## 0.0.4
+
+* Add Peraperty voteNotifier.
+* Add Peraperty userdata.
+* Update SDK To Flutter 3.27.
+* Fix Pub Point.
+
+

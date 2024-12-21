@@ -1,11 +1,12 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, duplicate_export
 
-library dynamic_polls;
+library;
 
 import 'dart:async';
 
 import 'package:dynamic_polls/src/polls.dart';
 import 'package:dynamic_polls/src/radio_bottom_polls.dart';
+import 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 import 'package:dynamic_polls/src/tools/model/vote_data_model.dart';
 import 'package:dynamic_polls/src/tools/style.dart';
 import 'package:dynamic_polls/src/tools/utils/poll_data_utils.dart';
@@ -15,6 +16,7 @@ import 'package:dynamic_polls/src/widget/poll_options_widget.dart';
 import 'package:flutter/material.dart';
 
 export 'package:dynamic_polls/src/tools/date_style.dart';
+export 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 export 'package:dynamic_polls/src/tools/model/vote_data_model.dart';
 export 'package:dynamic_polls/src/tools/option_style.dart';
 export 'package:dynamic_polls/src/tools/style.dart';
@@ -81,7 +83,7 @@ class DynamicPolls extends StatefulWidget {
   final String? createdBy;
 
   /// The name of the user who is allowed to vote.
-  final String? userToVote;
+  final UserDataModel? userData;
 
   /// Whether the poll is private.
   final bool private;
@@ -102,6 +104,9 @@ class DynamicPolls extends StatefulWidget {
 
   /// A stream controller for handling vote updates.
   final StreamController<VoteData>? voteStream;
+
+  /// A notifier for handling vote updates.
+  final ValueNotifier<VoteData>? voteNotifier;
 
   /// The height of the poll widget.
   final double? height;
@@ -143,7 +148,7 @@ class DynamicPolls extends StatefulWidget {
     this.heightBetweenTitleAndOptions = 10,
     this.votesText = 'Votes',
     this.createdBy,
-    this.userToVote,
+    this.userData,
     this.private = false,
     this.loadingWidget,
     this.voteStream,
@@ -151,6 +156,7 @@ class DynamicPolls extends StatefulWidget {
     this.height,
     this.width,
     this.showTimer = false,
+    this.voteNotifier,
   })  : assert(options.length <= maximumOptions!,
             'Maximum $maximumOptions options allowed'),
         assert(maximumOptions != null && maximumOptions > 0,
@@ -197,7 +203,7 @@ class DynamicPolls extends StatefulWidget {
     final String? createdBy,
 
     /// The name of the user who is allowed to vote.
-    final String? userToVote,
+    final UserDataModel? userData,
 
     /// The widget to display while the poll is loading.
     final Widget? loadingWidget,
@@ -207,6 +213,9 @@ class DynamicPolls extends StatefulWidget {
 
     /// A stream controller for handling vote updates.
     final StreamController<VoteData>? voteStream,
+
+    /// A notifier for handling vote updates.
+    final ValueNotifier<VoteData>? voteNotifier,
 
     /// The height of the poll widget.
     final double? height,
@@ -229,7 +238,7 @@ class DynamicPolls extends StatefulWidget {
       heightBetweenOptions: heightBetweenOptions,
       votesText: votesText,
       createdBy: createdBy,
-      userToVote: userToVote,
+      userData: userData,
       loadingWidget: loadingWidget,
       onOptionSelected: onOptionSelected,
       allStyle: allStyle,
@@ -270,7 +279,7 @@ class DynamicPolls extends StatefulWidget {
     final String? createdBy,
 
     /// The name of the user who is allowed to vote.
-    final String? userToVote,
+    final UserDataModel? userData,
 
     /// Whether the poll is private.
     final bool private = false,
@@ -291,6 +300,9 @@ class DynamicPolls extends StatefulWidget {
 
     /// A stream controller for handling vote updates.
     final StreamController<VoteData>? voteStream,
+
+    /// A notifier for handling vote updates.
+    final ValueNotifier<VoteData>? voteNotifier,
 
     /// The height of the poll widget.
     final double? height,
@@ -324,7 +336,7 @@ class DynamicPolls extends StatefulWidget {
       heightBetweenTitleAndOptions: heightBetweenTitleAndOptions,
       votesText: votesText,
       createdBy: createdBy,
-      userToVote: userToVote,
+      userData: userData,
       private: private,
       loadingWidget: loadingWidget,
       onOptionSelected: onOptionSelected,
@@ -446,9 +458,17 @@ class _DynamicPollsState extends State<DynamicPolls> {
         votes: votes,
         options: widget.options,
       ),
-      selectedOption: selectedOption,
-    );
 
+      /// The name of the user who is allowed to vote.
+      userToVote: widget.userData!.userToVote,
+      selectedOption: selectedOption,
+      age: widget.userData!.age,
+      country: widget.userData!.country,
+      gender: widget.userData!.gender,
+      phone: widget.userData!.phone,
+      userId: widget.userData!.userId,
+    );
+    widget.voteNotifier?.value = voteData;
     widget.voteStream?.add(voteData);
   }
 
@@ -664,7 +684,7 @@ class _DynamicPollsState extends State<DynamicPolls> {
                 padding: const EdgeInsets.all(16.0),
                 decoration: showTimeStyle?.decoration ??
                     BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                 child: Text(
