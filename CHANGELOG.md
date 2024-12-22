@@ -19,4 +19,8 @@
 * Update SDK To Flutter 3.27.
 * Fix Pub Point.
 
+## 0.0.5
+
+* Fix bug.
+
 
