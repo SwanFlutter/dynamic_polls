@@ -157,8 +157,10 @@ class DynamicPolls extends StatefulWidget {
     this.width,
     this.showTimer = false,
     this.voteNotifier,
-  })  : assert(options.length <= maximumOptions!, 'Maximum $maximumOptions options allowed'),
-        assert(maximumOptions != null && maximumOptions > 0, 'maximumOptions must be greater than zero.');
+  })  : assert(options.length <= maximumOptions!,
+            'Maximum $maximumOptions options allowed'),
+        assert(maximumOptions != null && maximumOptions > 0,
+            'maximumOptions must be greater than zero.');
 
   static Widget polls({
     /// The ID of the poll.
@@ -315,7 +317,8 @@ class DynamicPolls extends StatefulWidget {
     final Color? progressColor = Colors.blue,
 
     /// The color of the background of the progress bar.
-    final Color? backgroundProgressColor = const Color.fromRGBO(224, 224, 224, 1),
+    final Color? backgroundProgressColor =
+        const Color.fromRGBO(224, 224, 224, 1),
 
     /// The total number of votes cast in the poll.
     int? totalVotes,
@@ -516,7 +519,8 @@ class _DynamicPollsState extends State<DynamicPolls> {
     }
 
     // Update remaining time and clickable status
-    if (now.isAfter(widget.startDate.subtract(const Duration(seconds: 1))) && now.isBefore(widget.endDate.add(const Duration(seconds: 1)))) {
+    if (now.isAfter(widget.startDate.subtract(const Duration(seconds: 1))) &&
+        now.isBefore(widget.endDate.add(const Duration(seconds: 1)))) {
       remainingTime = widget.endDate.difference(now);
       newIsClickable = true;
     } else if (now.isBefore(widget.startDate)) {
@@ -528,7 +532,9 @@ class _DynamicPollsState extends State<DynamicPolls> {
     }
 
     String newFormattedTime = PollTimerManager.formatTimer(remainingTime);
-    if (isClickable != newIsClickable || formattedTime != newFormattedTime || _showTimer != widget.showTimer) {
+    if (isClickable != newIsClickable ||
+        formattedTime != newFormattedTime ||
+        _showTimer != widget.showTimer) {
       isClickable = newIsClickable;
       formattedTime = newFormattedTime;
 
@@ -589,8 +595,12 @@ class _DynamicPollsState extends State<DynamicPolls> {
             ignoring: !isClickable,
             child: LayoutBuilder(builder: (context, constraints) {
               return Container(
-                height: widget.height != 0 ? widget.height : constraints.maxHeight * 0.4,
-                width: widget.width != 0 ? widget.width : constraints.maxWidth * 0.8,
+                height: widget.height != 0
+                    ? widget.height
+                    : constraints.maxHeight * 0.4,
+                width: widget.width != 0
+                    ? widget.width
+                    : constraints.maxWidth * 0.8,
                 decoration: widget.backgroundDecoration ?? decoration,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -598,14 +608,20 @@ class _DynamicPollsState extends State<DynamicPolls> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                        alignment: widget.allStyle?.titleStyle!.alignment ?? Alignment.centerLeft,
+                        alignment: widget.allStyle?.titleStyle!.alignment ??
+                            Alignment.centerLeft,
                         child: SelectableText(
                           maxLines: widget.allStyle?.titleStyle!.maxLines,
                           minLines: widget.allStyle?.titleStyle!.minLines,
-                          textAlign: widget.allStyle?.titleStyle!.textAlign ?? TextAlign.center,
-                          textDirection: widget.allStyle?.titleStyle!.textDirection ?? TextDirection.ltr,
+                          textAlign: widget.allStyle?.titleStyle!.textAlign ??
+                              TextAlign.center,
+                          textDirection:
+                              widget.allStyle?.titleStyle!.textDirection ??
+                                  TextDirection.ltr,
                           widget.title,
-                          style: widget.allStyle?.titleStyle!.style ?? const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: widget.allStyle?.titleStyle!.style ??
+                              const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(height: widget.heightBetweenTitleAndOptions),
@@ -613,7 +629,10 @@ class _DynamicPollsState extends State<DynamicPolls> {
                         int index = entry.key;
                         String option = entry.value;
                         return Padding(
-                          padding: EdgeInsets.only(bottom: widget.allStyle?.optionStyle?.heightBetweenOptions ?? 8),
+                          padding: EdgeInsets.only(
+                              bottom: widget.allStyle?.optionStyle
+                                      ?.heightBetweenOptions ??
+                                  8),
                           child: PollOptionWidget(
                             dynamicPoll: widget,
                             option: option,
@@ -627,15 +646,22 @@ class _DynamicPollsState extends State<DynamicPolls> {
                           ),
                         );
                       }),
-                      SizedBox(height: widget.allStyle?.votesTextStyle?.paddingTop ?? 10),
+                      SizedBox(
+                          height: widget.allStyle?.votesTextStyle?.paddingTop ??
+                              10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Align(
-                            alignment: widget.allStyle?.votesTextStyle?.alignment ?? Alignment.centerLeft,
+                            alignment:
+                                widget.allStyle?.votesTextStyle?.alignment ??
+                                    Alignment.centerLeft,
                             child: Text(
                               '${widget.votesText} ${totalVote()}',
-                              style: widget.allStyle?.votesTextStyle?.style ?? const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              style: widget.allStyle?.votesTextStyle?.style ??
+                                  const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -650,7 +676,8 @@ class _DynamicPollsState extends State<DynamicPolls> {
         if (_showTimer && remainingTime.inSeconds > 0)
           Positioned.fill(
             child: Align(
-              alignment: widget.allStyle?.showTimeStyle?.alignment ?? Alignment.center,
+              alignment:
+                  widget.allStyle?.showTimeStyle?.alignment ?? Alignment.center,
               child: Container(
                 height: showTimeStyle?.height,
                 width: showTimeStyle?.width,
@@ -662,7 +689,8 @@ class _DynamicPollsState extends State<DynamicPolls> {
                     ),
                 child: Text(
                   '${widget.allStyle?.showTimeStyle?.text ?? "Time remaining: "} $formattedTime',
-                  style: widget.allStyle?.showTimeStyle?.style ?? const TextStyle(color: Colors.white, fontSize: 18),
+                  style: widget.allStyle?.showTimeStyle?.style ??
+                      const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
             ),
@@ -701,7 +729,9 @@ class ColumnWidget extends StatelessWidget {
                       text: widget.startDate.toLocal().toString().split(' ')[0],
                     )
                   ],
-                  style: widget.allStyle?.dateStyle?.textStyle ?? const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                  style: widget.allStyle?.dateStyle?.textStyle ??
+                      const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
                 ),
               ],
             ),
@@ -717,7 +747,9 @@ class ColumnWidget extends StatelessWidget {
                       text: widget.endDate.toLocal().toString().split(' ')[0],
                     )
                   ],
-                  style: widget.allStyle?.dateStyle?.textStyle ?? const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                  style: widget.allStyle?.dateStyle?.textStyle ??
+                      const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
                 ),
               ],
             ),

@@ -23,4 +23,8 @@
 
 * Fix bug.
 
+## 0.0.5+1
+
+* Fix Pub Point
+
 
