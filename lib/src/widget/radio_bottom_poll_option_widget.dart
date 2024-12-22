@@ -46,8 +46,7 @@ class RadioBottomPollOption extends StatefulWidget {
   State<RadioBottomPollOption> createState() => _RadioBottomPollOptionState();
 }
 
-class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
-    with SingleTickerProviderStateMixin {
+class _RadioBottomPollOptionState extends State<RadioBottomPollOption> with SingleTickerProviderStateMixin {
   late AnimationController _controller; // Controller for managing the animation
   late Animation<double> _animation; // Animation for the progress bar
 
@@ -56,12 +55,9 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
     super.initState();
     _controller = AnimationController(
       vsync: this, // Provides a ticker for the animation
-      duration:
-          widget.radioBottomPolls.allStyle?.optionStyle?.animationDuration ??
-              const Duration(milliseconds: 1000), // Sets animation duration
+      duration: widget.radioBottomPolls.allStyle?.optionStyle?.animationDuration ?? const Duration(milliseconds: 1000), // Sets animation duration
     );
-    _animation = Tween<double>(begin: 0, end: _getPercentage())
-        .animate(_controller); // Initializes the animation with the percentage
+    _animation = Tween<double>(begin: 0, end: _getPercentage()).animate(_controller); // Initializes the animation with the percentage
     _controller.forward(); // Starts the animation
   }
 
@@ -69,19 +65,15 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
   void didUpdateWidget(RadioBottomPollOption oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Checks if votes or total votes have changed to update the animation
-    if (oldWidget.votes != widget.votes ||
-        oldWidget.totalVotes != widget.totalVotes) {
-      _animation = Tween<double>(begin: _animation.value, end: _getPercentage())
-          .animate(_controller); // Updates the animation to the new percentage
+    if (oldWidget.votes != widget.votes || oldWidget.totalVotes != widget.totalVotes) {
+      _animation = Tween<double>(begin: _animation.value, end: _getPercentage()).animate(_controller); // Updates the animation to the new percentage
       _controller.forward(from: 0); // Restarts the animation from the beginning
     }
   }
 
   double _getPercentage() {
     // Calculates the percentage of votes this option has received
-    return widget.totalVotes > 0
-        ? widget.votes / widget.totalVotes
-        : 0; // Avoids division by zero
+    return widget.totalVotes > 0 ? widget.votes / widget.totalVotes : 0; // Avoids division by zero
   }
 
   @override
@@ -92,8 +84,7 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
 
   @override
   Widget build(BuildContext context) {
-    final optionStyle = widget
-        .radioBottomPolls.allStyle?.optionStyle; // Retrieves the option style
+    final optionStyle = widget.radioBottomPolls.allStyle?.optionStyle; // Retrieves the option style
 
     return InkWell(
       onTap: widget.onTap, // Sets the onTap callback for the InkWell
@@ -102,70 +93,44 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
         child: Row(
           children: [
             Icon(
-              widget.isSelected
-                  ? Icons.radio_button_checked
-                  : Icons
-                      .radio_button_unchecked, // Displays the appropriate radio button icon based on selection
-              color: widget.isSelected
-                  ? optionStyle?.selectedBorderColor ?? Colors.blue
-                  : Colors.grey, // Sets the icon color based on selection
+              widget.isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked, // Displays the appropriate radio button icon based on selection
+              color: widget.isSelected ? optionStyle?.selectedBorderColor ?? Colors.blue : Colors.grey, // Sets the icon color based on selection
             ),
             const SizedBox(width: 12), // Adds space between the icon and text
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment
-                    .start, // Aligns children to the start of the column
+                crossAxisAlignment: CrossAxisAlignment.start, // Aligns children to the start of the column
                 children: [
                   Text(
                     widget.option, // Displays the option text
                     style: TextStyle(
-                      fontWeight: widget.isSelected
-                          ? FontWeight.bold
-                          : FontWeight
-                              .normal, // Sets font weight based on selection
-                      color: widget.isSelected
-                          ? optionStyle?.textSelectColor ?? Colors.blue
-                          : Colors.black, // Sets text color based on selection
+                      fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.normal, // Sets font weight based on selection
+                      color: widget.isSelected ? optionStyle?.textSelectColor ?? Colors.blue : Colors.black, // Sets text color based on selection
                     ),
                   ),
                   const SizedBox(height: 4), // Adds space below the option text
-                  if (widget.hasVoted &&
-                      !widget.radioBottomPolls
-                          .private) // Checks if the user has voted and the poll is not private
+                  if (widget.hasVoted && !widget.radioBottomPolls.private) // Checks if the user has voted and the poll is not private
                     AnimatedBuilder(
-                      animation:
-                          _animation, // Listens to the animation for updates
+                      animation: _animation, // Listens to the animation for updates
                       builder: (context, child) {
                         return Stack(
                           children: [
                             Container(
-                              height: widget.radioBottomPolls
-                                  .heightProgress, // Sets the height of the progress bar
+                              height: widget.radioBottomPolls.heightProgress, // Sets the height of the progress bar
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(widget
-                                    .radioBottomPolls
-                                    .heightProgress!), // Rounds the corners of the progress bar
-                                color: widget.radioBottomPolls
-                                    .backgroundProgressColor, // Sets the background color of the progress bar
+                                borderRadius: BorderRadius.circular(widget.radioBottomPolls.heightProgress!), // Rounds the corners of the progress bar
+                                color: widget.radioBottomPolls.backgroundProgressColor, // Sets the background color of the progress bar
                               ),
                             ),
                             FractionallySizedBox(
-                              widthFactor: _animation
-                                  .value, // Sets the width of the filled portion based on animation value
+                              widthFactor: _animation.value, // Sets the width of the filled portion based on animation value
                               child: Container(
-                                height:
-                                    15, // Sets the height of the filled portion
+                                height: 15, // Sets the height of the filled portion
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(widget
-                                      .radioBottomPolls
-                                      .heightProgress!), // Rounds the corners of the filled portion
+                                  borderRadius: BorderRadius.circular(widget.radioBottomPolls.heightProgress!), // Rounds the corners of the filled portion
                                   color: widget.isSelected
-                                      ? widget.radioBottomPolls.progressColor ??
-                                          Colors.blue
-                                      : widget.radioBottomPolls.progressColor
-                                              ?.withOpacity(0.6) ??
-                                          Colors.blue.withOpacity(
-                                              0.6), // Sets the color based on selection
+                                      ? widget.radioBottomPolls.progressColor ?? Colors.blue
+                                      : widget.radioBottomPolls.progressColor?.withValues(alpha: 0.6) ?? Colors.blue.withValues(alpha: 0.6), // Sets the color based on selection
                                 ),
                               ),
                             ),
@@ -176,21 +141,15 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
                 ],
               ),
             ),
-            if (widget.hasVoted &&
-                !widget.radioBottomPolls
-                    .private) // Checks if the user has voted and the poll is not private
+            if (widget.hasVoted && !widget.radioBottomPolls.private) // Checks if the user has voted and the poll is not private
               AnimatedBuilder(
                 animation: _animation, // Listens to the animation for updates
                 builder: (context, child) {
                   return Text(
                     '${(_animation.value * 100).toStringAsFixed(1)}%', // Displays the percentage of votes
                     style: TextStyle(
-                      fontWeight:
-                          FontWeight.bold, // Sets the font weight to bold
-                      color: widget.isSelected
-                          ? optionStyle?.textSelectColor ?? Colors.blue
-                          : optionStyle?.otherTextPercentColor ??
-                              Colors.grey, // Sets text color based on selection
+                      fontWeight: FontWeight.bold, // Sets the font weight to bold
+                      color: widget.isSelected ? optionStyle?.textSelectColor ?? Colors.blue : optionStyle?.otherTextPercentColor ?? Colors.grey, // Sets text color based on selection
                     ),
                   );
                 },

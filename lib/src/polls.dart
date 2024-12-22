@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:dynamic_polls/dynamic_polls.dart';
-import 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 import 'package:dynamic_polls/src/tools/utils/poll_data_utils.dart';
 import 'package:dynamic_polls/src/widget/polls_option_widget.dart';
 import 'package:flutter/material.dart';
@@ -135,13 +134,13 @@ class _PollsState extends State<Polls> {
         votes: votes,
         options: widget.options,
       ),
-      userToVote: widget.userData!.userToVote,
+      userToVote: widget.userData?.userToVote,
       selectedOption: selectedOption,
-      age: widget.userData!.age,
-      country: widget.userData!.country,
-      gender: widget.userData!.gender,
-      phone: widget.userData!.phone,
-      userId: widget.userData!.userId,
+      age: widget.userData?.age,
+      country: widget.userData?.country,
+      gender: widget.userData?.gender,
+      phone: widget.userData?.phone,
+      userId: widget.userData?.userId,
     );
     widget.voteNotifier?.value = voteData;
     widget.voteStream?.add(voteData);
@@ -211,18 +210,18 @@ class _PollsState extends State<Polls> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Align(
-                    alignment: widget.allStyle?.titleStyle!.alignment ??
+                    alignment: widget.allStyle?.titleStyle?.alignment ??
                         Alignment.centerLeft,
                     child: SelectableText(
-                      maxLines: widget.allStyle?.titleStyle!.maxLines,
-                      minLines: widget.allStyle?.titleStyle!.minLines,
-                      textAlign: widget.allStyle?.titleStyle!.textAlign ??
+                      maxLines: widget.allStyle?.titleStyle?.maxLines,
+                      minLines: widget.allStyle?.titleStyle?.minLines,
+                      textAlign: widget.allStyle?.titleStyle?.textAlign ??
                           TextAlign.center,
                       textDirection:
-                          widget.allStyle?.titleStyle!.textDirection ??
+                          widget.allStyle?.titleStyle?.textDirection ??
                               TextDirection.ltr,
                       widget.title,
-                      style: widget.allStyle?.titleStyle!.style ??
+                      style: widget.allStyle?.titleStyle?.style ??
                           const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                     ),

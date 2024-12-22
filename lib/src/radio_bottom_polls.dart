@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:dynamic_polls/dynamic_polls.dart';
-import 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 import 'package:dynamic_polls/src/tools/utils/poll_data_utils.dart';
 import 'package:dynamic_polls/src/widget/radio_bottom_poll_option_widget.dart';
 import 'package:flutter/material.dart';
@@ -140,15 +139,13 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
         options: widget.options, // Poll options
         /// The name of the user who is allowed to vote.
       ),
-      selectedOption: selectedOption, // Currently selected option
-
-      userToVote: widget.userData!.userToVote,
-
-      age: widget.userData!.age,
-      country: widget.userData!.country,
-      gender: widget.userData!.gender,
-      phone: widget.userData!.phone,
-      userId: widget.userData!.userId,
+      userToVote: widget.userData?.userToVote,
+      selectedOption: selectedOption,
+      age: widget.userData?.age,
+      country: widget.userData?.country,
+      gender: widget.userData?.gender,
+      phone: widget.userData?.phone,
+      userId: widget.userData?.userId,
     );
 
     widget.voteNotifier?.value = voteData;

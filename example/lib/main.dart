@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 
 import 'package:dynamic_polls/dynamic_polls.dart';
@@ -36,7 +38,12 @@ class _HomePageState extends State<HomePage> {
   DateTime startDate = DateTime(2024, 11, 25, 10, 0);
   DateTime endDate = DateTime(2024, 11, 30, 18, 0);
 
-  final voteNotifier = ValueNotifier<VoteData>(VoteData(totalVotes: 0, optionVotes: {}, percentages: {}, selectedOption: 0, userToVote: ''));
+  final voteNotifier = ValueNotifier<VoteData>(VoteData(
+      totalVotes: 0,
+      optionVotes: {},
+      percentages: {},
+      selectedOption: 0,
+      userToVote: ''));
 
   @override
   void didChangeDependencies() {
@@ -58,9 +65,9 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     voteNotifier.addListener(() {
       final voteData = voteNotifier.value;
-      print('all votes: ${voteData.totalVotes}');
-      print('votes for each option: ${voteData.optionVotes}');
-      print('percentages for each option: ${voteData.percentages}');
+      debugPrint('all votes: ${voteData.totalVotes}');
+      debugPrint('votes for each option: ${voteData.optionVotes}');
+      debugPrint('percentages for each option: ${voteData.percentages}');
     });
 
     return Scaffold(
@@ -87,10 +94,19 @@ class _HomePageState extends State<HomePage> {
                         // Create an instance of the VoteData class with sample data.
                         VoteData voteData1 = VoteData(
                           totalVotes: 100, // Total number of votes
-                          optionVotes: {1: 50, 2: 30, 3: 20}, // Number of votes for each option
-                          percentages: {1: 50.0, 2: 30.0, 3: 20.0}, // Percentage of votes for each option
+                          optionVotes: {
+                            1: 50,
+                            2: 30,
+                            3: 20
+                          }, // Number of votes for each option
+                          percentages: {
+                            1: 50.0,
+                            2: 30.0,
+                            3: 20.0
+                          }, // Percentage of votes for each option
                           selectedOption: 1, // The selected option
-                          userToVote: 'John Doe', // The username or identifier of the voter
+                          userToVote:
+                              'John Doe', // The username or identifier of the voter
                           userId: '12345', // Unique ID of the user
                           country: 'USA', // Country of the user
                           gender: 'Male', // Gender of the user
@@ -99,25 +115,11 @@ class _HomePageState extends State<HomePage> {
                         );
 
                         // Convert the VoteData object to a readable string and print it.
-                        print(voteData1.toString());
+                        debugPrint(voteData1.toString());
 
                         // Create a new instance of VoteData with some modified fields using copyWith().
-                        var updatedVoteData = voteData1.copyWith(totalVotes: 120, selectedOption: 2);
-
-                        // Convert the VoteData object to a Map and print it.
-                        print(updatedVoteData.toMap());
-
-                        // Convert the VoteData object to JSON and print it.
-                        print(updatedVoteData.toJson());
-                        print(updatedVoteData.toJsonString());
-
-                        // Example: Access individual properties of the voteData1 object.
-                        print('Total Votes: ${voteData1.totalVotes}'); // Prints the total number of votes.
-                        print('Option Votes: ${voteData1.optionVotes}'); // Prints the votes for each option.
-                        print('Percentages: ${voteData1.percentages}'); // Prints the percentages for each option.
-
-                        // Access the notifier's value to show the live data being tracked.
-                        print(voteData);
+                        var updatedVoteData = voteData1.copyWith(
+                            totalVotes: 120, selectedOption: 2);
                       });
                     },
                     child: const Text("Click me"),
@@ -162,7 +164,8 @@ class _HomePageState extends State<HomePage> {
                         minLines: 1,
                         textAlign: TextAlign.center,
                         textDirection: TextDirection.rtl,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       optionStyle: OptionStyle(
                         borderRadius: BorderRadius.circular(12),
@@ -170,7 +173,8 @@ class _HomePageState extends State<HomePage> {
                         unselectedBorderColor: Colors.grey,
                         borderWidth: 2.0,
                         fillColor: Colors.white,
-                        votedCheckmark: const Icon(Icons.check, color: Colors.green),
+                        votedCheckmark:
+                            const Icon(Icons.check, color: Colors.green),
                         textSelectColor: Colors.blue,
                         otherTextPercentColor: Colors.black,
                         leadingVotedProgessColor: Colors.blue,
@@ -183,12 +187,14 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.center,
                         paddingTop: 10,
                         paddingBottom: 10,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       dateStyle: DateStyle(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         textStart: 'شروع شده در: ',
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                     onOptionSelected: (index) {
@@ -203,20 +209,31 @@ class _HomePageState extends State<HomePage> {
                     showPercentages: false,
                     showTimer: true,
                     allStyle: Styles(
-                      titleStyle: TitleStyle(textDirection: TextDirection.ltr, alignment: Alignment.centerLeft),
+                      titleStyle: TitleStyle(
+                          textDirection: TextDirection.ltr,
+                          alignment: Alignment.centerLeft),
                       optionStyle: OptionStyle(
+                        borderWidth: 2,
+                        progressBorderWidth: 0,
                         unselectedBorderColor: Colors.teal,
-                        votedBackgroundColor: Colors.blue.withOpacity(0.5),
+                        votedBackgroundColor:
+                            Colors.blue.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(8),
                         borderColor: Colors.purple,
                         leadingVotedProgessColor: Colors.purple,
                         height: 45,
-                        voteBorderProgressColor: Colors.purple,
+                        voteBorderProgressColor: Colors.green,
                         fillColor: Colors.white,
                       ),
                     ),
-                    title: 'What is your favorite color?  ef ewf wewerwetwerwrweret  t t wtwetrw t  4twtrw4 ttttetertt   4tetree t ertert et ert e 543eter te t ert ter te4 t rret54e te tre te  ert 4 3tertert',
-                    options: const ['Reddfdfd', 'Bluefdfdfd', 'Greendfdfdfd sd sad sadadsadadsadsa s adas wdwdawd aw', 'Yellowfdfdfd'],
+                    title:
+                        'What is your favorite color?  ef ewf wewerwetwerwrweret  t t wtwetrw t  4twtrw4 ttttetertt   4tetree t ertert et ert e 543eter te t ert ter te4 t rret54e te tre te  ert 4 3tertert',
+                    options: const [
+                      'Reddfdfd',
+                      'Bluefdfdfd',
+                      'Greendfdfdfd sd sad sadadsadadsadsa s adas wdwdawd aw',
+                      'Yellowfdfdfd'
+                    ],
                     startDate: DateTime.now().add(const Duration(seconds: 7)),
                     endDate: DateTime.now().add(const Duration(minutes: 4)),
                     onOptionSelected: (int selectedOption) {
@@ -227,17 +244,45 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 20),
                   DynamicPolls.radioBottomPolls(
-                    title: 'How old are you?',
-                    options: const ['18-25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56-60', '61-65', '66-70'],
-                    onOptionSelected: (int index) {},
-                    allowReselection: true,
-                  ),
+                      title: 'How old are you?',
+                      options: const [
+                        '18-25',
+                        '26-30',
+                        '31-35',
+                        '36-40',
+                        '41-45',
+                        '46-50',
+                        '51-55',
+                        '56-60',
+                        '61-65',
+                        '66-70'
+                      ],
+                      onOptionSelected: (int index) {},
+                      allowReselection: true,
+                      private: true),
                   const SizedBox(height: 20),
                   DynamicPolls.polls(
                     title: 'How old are you?',
-                    options: ['18-25', '26-30', '31-35', '36-40', '41-45', '46-50', '51-55', '56-60', '61-65', '66-70'],
+                    options: [
+                      '18-25',
+                      '26-30',
+                      '31-35',
+                      '36-40',
+                      '41-45',
+                      '46-50',
+                      '51-55',
+                      '56-60',
+                      '61-65',
+                      '66-70'
+                    ],
                     onOptionSelected: (int index) {},
-                    allowReselection: false,
+                    allowReselection: true,
+                    allStyle: Styles(
+                      optionStyle: OptionStyle(
+                          progressBorderWidth: 2,
+                          animationDuration: const Duration(seconds: 1),
+                          borderColor: Colors.amber),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Padding(
@@ -261,8 +306,10 @@ class _HomePageState extends State<HomePage> {
                       votedProgressColor: Colors.blue,
                       leadingVotedProgessColor: Colors.blueAccent,
                       votedBackgroundColor: const Color(0xffEEF0EB),
-                      votedPercentageTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      votesTextStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      votedPercentageTextStyle: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.bold),
+                      votesTextStyle: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],
