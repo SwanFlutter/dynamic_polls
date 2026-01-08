@@ -109,10 +109,14 @@ class RadioBottomPolls extends StatefulWidget {
     this.backgroundProgressColor = const Color.fromRGBO(224, 224, 224, 1),
     this.pollsLabels,
     double? heightBetweenOptions,
-  })  : assert(options.length <= maximumOptions!,
-            'Maximum $maximumOptions options allowed'),
-        assert(maximumOptions != null && maximumOptions > 0,
-            'maximumOptions must be greater than zero.');
+  }) : assert(
+         options.length <= maximumOptions!,
+         'Maximum $maximumOptions options allowed',
+       ),
+       assert(
+         maximumOptions != null && maximumOptions > 0,
+         'maximumOptions must be greater than zero.',
+       );
 
   @override
   State<RadioBottomPolls> createState() => _RadioBottomPollsState();
@@ -226,7 +230,7 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
     return Container(
       decoration:
           widget.backgroundDecoration ?? // Use provided decoration or default
-              decoration,
+          decoration,
       child: Column(
         crossAxisAlignment:
             CrossAxisAlignment.start, // Align children to the start
@@ -235,9 +239,12 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
             padding: const EdgeInsets.all(16.0), // Padding around title
             child: Text(
               widget.title, // Display poll title
-              style: widget.allStyle?.titleStyle?.style ??
+              style:
+                  widget.allStyle?.titleStyle?.style ??
                   const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold), // Title style
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ), // Title style
             ),
           ),
           ...widget.options.asMap().entries.map((entry) {
@@ -250,7 +257,8 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
               onTap: () => _selectOption(index), // Handle option tap
               votes: votes[index] ?? 0, // Get vote count for option
               totalVotes: totalVote(), // Pass total votes
-              showPercentages: widget.showPercentages &&
+              showPercentages:
+                  widget.showPercentages &&
                   hasVoted, // Show percentages if applicable
               hasVoted: hasVoted, // Pass whether user has voted
               index: index, // Pass option index
@@ -262,10 +270,12 @@ class _RadioBottomPollsState extends State<RadioBottomPolls> {
               padding: const EdgeInsets.all(16.0), // Padding around votes text
               child: Text(
                 '${widget.pollsLabels?.votesText ?? widget.votesText} ${totalVote()}', // Display votes text and total votes
-                style: widget.allStyle?.votesTextStyle?.style ??
+                style:
+                    widget.allStyle?.votesTextStyle?.style ??
                     const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold), // Votes text style
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ), // Votes text style
               ),
             ),
         ],

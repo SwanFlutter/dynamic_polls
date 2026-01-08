@@ -61,11 +61,14 @@ class _PollOptionWidgetState extends State<PollOptionWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: widget.dynamicPoll.allStyle?.optionStyle?.animationDuration ??
+      duration:
+          widget.dynamicPoll.allStyle?.optionStyle?.animationDuration ??
           const Duration(milliseconds: 1000),
     );
-    _animation =
-        Tween<double>(begin: 0, end: _getPercentage()).animate(_controller);
+    _animation = Tween<double>(
+      begin: 0,
+      end: _getPercentage(),
+    ).animate(_controller);
     _controller.forward();
   }
 
@@ -75,8 +78,10 @@ class _PollOptionWidgetState extends State<PollOptionWidget>
 
     if (oldWidget.votes != widget.votes ||
         oldWidget.totalVotes != widget.totalVotes) {
-      _animation = Tween<double>(begin: _animation.value, end: _getPercentage())
-          .animate(_controller);
+      _animation = Tween<double>(
+        begin: _animation.value,
+        end: _getPercentage(),
+      ).animate(_controller);
       _controller.forward(from: 0);
     }
   }
@@ -133,26 +138,29 @@ class _PollOptionWidgetState extends State<PollOptionWidget>
                               borderRadius: progressBorderWidth > 0
                                   ? BorderRadius.horizontal(
                                       right: Radius.circular(
-                                          borderRadius.topRight.y),
+                                        borderRadius.topRight.y,
+                                      ),
                                     )
                                   : null,
                               color: widget.isSelected
                                   ? optionStyle?.leadingVotedProgessColor
-                                          ?.withValues(
-                                              alpha: optionStyle
+                                            ?.withValues(
+                                              alpha:
+                                                  optionStyle
                                                       .opacityLeadingVotedProgessColor ??
-                                                  0.2) ??
-                                      Colors.blue.withValues(alpha: 0.2)
+                                                  0.2,
+                                            ) ??
+                                        Colors.blue.withValues(alpha: 0.2)
                                   : optionStyle?.votedBackgroundColor
-                                          ?.withValues(alpha: 0.8) ??
-                                      Colors.blue.withValues(alpha: 0.8),
+                                            ?.withValues(alpha: 0.8) ??
+                                        Colors.blue.withValues(alpha: 0.8),
                               border: progressBorderWidth > 0
                                   ? Border.symmetric(
                                       vertical: BorderSide(
                                         color: widget.isSelected
                                             ? optionStyle
-                                                    ?.voteBorderProgressColor ??
-                                                Colors.blue
+                                                      ?.voteBorderProgressColor ??
+                                                  Colors.blue
                                             : Colors.transparent,
                                         width: progressBorderWidth,
                                       ),
@@ -187,7 +195,7 @@ class _PollOptionWidgetState extends State<PollOptionWidget>
                                     : FontWeight.normal,
                                 color: widget.isSelected
                                     ? optionStyle?.textSelectColor ??
-                                        Colors.blue.withValues(alpha: 0.8)
+                                          Colors.blue.withValues(alpha: 0.8)
                                     : Colors.black,
                               ),
                               softWrap: true,
@@ -207,7 +215,7 @@ class _PollOptionWidgetState extends State<PollOptionWidget>
                                     fontWeight: FontWeight.bold,
                                     color: widget.isSelected
                                         ? optionStyle?.textSelectColor ??
-                                            Colors.blue.withValues(alpha: 0.8)
+                                              Colors.blue.withValues(alpha: 0.8)
                                         : optionStyle?.otherTextPercentColor,
                                   ),
                                 );

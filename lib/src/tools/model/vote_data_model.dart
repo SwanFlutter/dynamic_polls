@@ -86,8 +86,9 @@ class VoteData {
     return {
       'totalVotes': totalVotes,
       'optionVotes': optionVotes,
-      'percentages':
-          percentages.map((key, value) => MapEntry(key.toString(), value)),
+      'percentages': percentages.map(
+        (key, value) => MapEntry(key.toString(), value),
+      ),
       'selectedOption': selectedOption,
       'userToVote': userToVote,
       'userId': userId,
@@ -143,12 +144,15 @@ class VoteData {
     return VoteData(
       totalVotes: map['totalVotes'] as int,
       optionVotes: Map<int, int>.from((map['optionVotes'] as Map<int, int>)),
-      percentages:
-          Map<int, double>.from((map['percentages'] as Map<int, double>)),
-      selectedOption:
-          map['selectedOption'] != null ? map['selectedOption'] as int : null,
-      userToVote:
-          map['userToVote'] != null ? map['userToVote'] as String : null,
+      percentages: Map<int, double>.from(
+        (map['percentages'] as Map<int, double>),
+      ),
+      selectedOption: map['selectedOption'] != null
+          ? map['selectedOption'] as int
+          : null,
+      userToVote: map['userToVote'] != null
+          ? map['userToVote'] as String
+          : null,
       userId: map['userId'] != null ? map['userId'] as String : null,
       country: map['country'] != null ? map['country'] as String : null,
       gender: map['gender'] != null ? map['gender'] as String : null,

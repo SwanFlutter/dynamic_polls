@@ -56,11 +56,14 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: widget.dynamicPoll.allStyle?.optionStyle?.animationDuration ??
+      duration:
+          widget.dynamicPoll.allStyle?.optionStyle?.animationDuration ??
           const Duration(milliseconds: 1000),
     );
-    _animation =
-        Tween<double>(begin: 0, end: _getPercentage()).animate(_controller);
+    _animation = Tween<double>(
+      begin: 0,
+      end: _getPercentage(),
+    ).animate(_controller);
     _controller.forward();
   }
 
@@ -70,8 +73,10 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
 
     if (oldWidget.votes != widget.votes ||
         oldWidget.totalVotes != widget.totalVotes) {
-      _animation = Tween<double>(begin: _animation.value, end: _getPercentage())
-          .animate(_controller);
+      _animation = Tween<double>(
+        begin: _animation.value,
+        end: _getPercentage(),
+      ).animate(_controller);
       _controller.forward(from: 0);
     }
   }
@@ -126,21 +131,24 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
                           ),
                           color: widget.isSelected
                               ? optionStyle?.leadingVotedProgessColor?.withValues(
-                                      alpha: optionStyle
+                                      alpha:
+                                          optionStyle
                                               .opacityLeadingVotedProgessColor ??
-                                          0.2) ??
-                                  Colors.blue.withValues(alpha: 0.2)
-                              : optionStyle?.votedBackgroundColor
-                                      ?.withValues(alpha: 0.8) ??
-                                  Colors.blue.withValues(alpha: 0.8),
+                                          0.2,
+                                    ) ??
+                                    Colors.blue.withValues(alpha: 0.2)
+                              : optionStyle?.votedBackgroundColor?.withValues(
+                                      alpha: 0.8,
+                                    ) ??
+                                    Colors.blue.withValues(alpha: 0.8),
                           // فقط زمانی از border استفاده می‌کنیم که عرض آن بزرگتر از صفر باشد
                           border: progressBorderWidth > 0
                               ? Border.symmetric(
                                   vertical: BorderSide(
                                     color: widget.isSelected
                                         ? optionStyle
-                                                ?.voteBorderProgressColor ??
-                                            Colors.blue
+                                                  ?.voteBorderProgressColor ??
+                                              Colors.blue
                                         : Colors.transparent,
                                     width: progressBorderWidth,
                                   ),
@@ -153,7 +161,9 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding:
+                  optionStyle?.contentPadding ??
+                  const EdgeInsets.symmetric(horizontal: 14),
               child: Row(
                 children: [
                   if (widget.isSelected &&
@@ -170,7 +180,7 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
                             : FontWeight.normal,
                         color: widget.isSelected
                             ? optionStyle?.textSelectColor ??
-                                Colors.blue.withValues(alpha: 0.8)
+                                  Colors.blue.withValues(alpha: 0.8)
                             : Colors.black,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -187,7 +197,7 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
                             fontWeight: FontWeight.bold,
                             color: widget.isSelected
                                 ? optionStyle?.textSelectColor ??
-                                    Colors.blue.withValues(alpha: 0.8)
+                                      Colors.blue.withValues(alpha: 0.8)
                                 : optionStyle?.otherTextPercentColor,
                           ),
                         );

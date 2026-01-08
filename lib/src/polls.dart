@@ -109,10 +109,14 @@ class Polls extends StatefulWidget {
     this.voteNotifier,
     this.pollsLabels,
     double? heightBetweenOptions,
-  })  : assert(options.length <= maximumOptions!,
-            'Maximum $maximumOptions options allowed'),
-        assert(maximumOptions != null && maximumOptions > 0,
-            'maximumOptions must be greater than zero.');
+  }) : assert(
+         options.length <= maximumOptions!,
+         'Maximum $maximumOptions options allowed',
+       ),
+       assert(
+         maximumOptions != null && maximumOptions > 0,
+         'maximumOptions must be greater than zero.',
+       );
 
   @override
   State<Polls> createState() => _PollsState();
@@ -159,23 +163,23 @@ class _PollsState extends State<Polls> {
 
       if (selectedOption == index) {
         if (widget.allowReselection) {
-// If reselection is allowed, cancel the option
+          // If reselection is allowed, cancel the option
           votes[index] = (votes[index] ?? 0) - 1;
           selectedOption = null;
         }
       } else {
-// If a new option is selected
+        // If a new option is selected
         if (selectedOption != null) {
-// If an option was already selected, decrease its vote
+          // If an option was already selected, decrease its vote
           votes[selectedOption!] = (votes[selectedOption!] ?? 0) - 1;
         }
 
-// Select the new option and increase its vote
+        // Select the new option and increase its vote
         selectedOption = index;
         votes[index] = (votes[index] ?? 0) + 1;
       }
 
-    // Recalculate the total votes
+      // Recalculate the total votes
       totalVotes = totalVote();
     });
 
@@ -216,80 +220,96 @@ class _PollsState extends State<Polls> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        LayoutBuilder(builder: (context, constraints) {
-          return Container(
-            height: widget.height != 0
-                ? widget.height
-                : constraints.maxHeight * 0.4,
-            width:
-                widget.width != 0 ? widget.width : constraints.maxWidth * 0.8,
-            decoration: widget.backgroundDecoration ?? decoration,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: widget.allStyle?.titleStyle?.alignment ??
-                        Alignment.centerLeft,
-                    child: SelectableText(
-                      maxLines: widget.allStyle?.titleStyle?.maxLines,
-                      minLines: widget.allStyle?.titleStyle?.minLines,
-                      textAlign: widget.allStyle?.titleStyle?.textAlign ??
-                          TextAlign.center,
-                      textDirection:
-                          widget.allStyle?.titleStyle?.textDirection ??
-                              TextDirection.ltr,
-                      widget.title,
-                      style: widget.allStyle?.titleStyle?.style ??
-                          const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              height: widget.height != 0
+                  ? widget.height
+                  : constraints.maxHeight * 0.4,
+              width: widget.width != 0
+                  ? widget.width
+                  : constraints.maxWidth * 0.8,
+              decoration: widget.backgroundDecoration ?? decoration,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment:
+                          widget.allStyle?.titleStyle?.alignment ??
+                          Alignment.centerLeft,
+                      child: SelectableText(
+                        maxLines: widget.allStyle?.titleStyle?.maxLines,
+                        minLines: widget.allStyle?.titleStyle?.minLines,
+                        textAlign:
+                            widget.allStyle?.titleStyle?.textAlign ??
+                            TextAlign.center,
+                        textDirection:
+                            widget.allStyle?.titleStyle?.textDirection ??
+                            TextDirection.ltr,
+                        widget.title,
+                        style:
+                            widget.allStyle?.titleStyle?.style ??
+                            const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: widget.heightBetweenTitleAndOptions),
-                  ...widget.options.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    String option = entry.value;
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: widget.allStyle?.optionStyle
+                    SizedBox(height: widget.heightBetweenTitleAndOptions),
+                    ...widget.options.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      String option = entry.value;
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom:
+                              widget
+                                  .allStyle
+                                  ?.optionStyle
                                   ?.heightBetweenOptions ??
-                              8),
-                      child: PollsOptionWidget(
-                        dynamicPoll: widget,
-                        option: option,
-                        votes: votes[index] ?? 0,
-                        totalVotes: totalVote(),
-                        onTap: () => _selectOption(index),
-                        isSelected: selectedOption == index,
-                        index: index,
-                        hasVoted: hasVoted,
-                      ),
-                    );
-                  }),
-                  SizedBox(
-                      height:
-                          widget.allStyle?.votesTextStyle?.paddingTop ?? 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: widget.allStyle?.votesTextStyle?.alignment ??
-                            Alignment.centerLeft,
-                        child: Text(
-                          '${widget.pollsLabels?.votesText ?? widget.votesText} ${totalVote()}',
-                          style: widget.allStyle?.votesTextStyle?.style ??
-                              const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              8,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        child: PollsOptionWidget(
+                          dynamicPoll: widget,
+                          option: option,
+                          votes: votes[index] ?? 0,
+                          totalVotes: totalVote(),
+                          onTap: () => _selectOption(index),
+                          isSelected: selectedOption == index,
+                          index: index,
+                          hasVoted: hasVoted,
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: widget.allStyle?.votesTextStyle?.paddingTop ?? 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment:
+                              widget.allStyle?.votesTextStyle?.alignment ??
+                              Alignment.centerLeft,
+                          child: Text(
+                            '${widget.pollsLabels?.votesText ?? widget.votesText} ${totalVote()}',
+                            style:
+                                widget.allStyle?.votesTextStyle?.style ??
+                                const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          },
+        ),
       ],
     );
   }

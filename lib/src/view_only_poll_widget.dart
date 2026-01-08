@@ -142,8 +142,9 @@ class ViewOnlyPollWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateFormat =
-        DateFormat('yyyy/MM/dd HH:mm'); // Format for displaying dates
+    final dateFormat = DateFormat(
+      'yyyy/MM/dd HH:mm',
+    ); // Format for displaying dates
     return Card(
       elevation: 4, // Elevation for shadow effect
       margin: const EdgeInsets.all(12), // Margin around the card
@@ -160,12 +161,13 @@ class ViewOnlyPollWidget extends StatelessWidget {
             Text(
               title, // Display the poll title
               style: const TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold), // Title style
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ), // Title style
             ),
             SizedBox(
-                height:
-                    heightBetweenTitleAndOptions), // Space between title and options
-
+              height: heightBetweenTitleAndOptions,
+            ), // Space between title and options
             // Poll Options
             ...options.asMap().entries.map((entry) {
               final index = entry.key; // Get the index of the option
@@ -178,18 +180,22 @@ class ViewOnlyPollWidget extends StatelessWidget {
 
               return Padding(
                 padding: EdgeInsets.only(
-                    bottom:
-                        heightBetweenOptions ?? 12), // Space between options
+                  bottom: heightBetweenOptions ?? 12,
+                ), // Space between options
                 child: Container(
                   height: pollOptionsHeight, // Height of the option container
                   decoration: BoxDecoration(
                     color:
                         pollOptionsFillColor, // Background color of the option
-                    borderRadius: pollOptionsBorderRadius ??
+                    borderRadius:
+                        pollOptionsBorderRadius ??
                         BorderRadius.circular(8), // Border radius
-                    border: pollOptionsBorder ??
+                    border:
+                        pollOptionsBorder ??
                         Border.all(
-                            color: Colors.grey, width: 1.0), // Border style
+                          color: Colors.grey,
+                          width: 1.0,
+                        ), // Border style
                   ),
                   child: Stack(
                     children: [
@@ -199,18 +205,22 @@ class ViewOnlyPollWidget extends StatelessWidget {
                             percentage / 100, // Width based on percentage
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: pollOptionsBorderRadius ??
+                            borderRadius:
+                                pollOptionsBorderRadius ??
                                 BorderRadius.circular(8), // Border radius
-                            color: votedProgressColor?.withValues(alpha: 0.3) ??
-                                Colors.blue
-                                    .withValues(alpha: 0.3), // Progress color
+                            color:
+                                votedProgressColor?.withValues(alpha: 0.3) ??
+                                Colors.blue.withValues(
+                                  alpha: 0.3,
+                                ), // Progress color
                           ),
                         ),
                       ),
                       // Option Text and Percentage
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12), // Padding for option text
+                          horizontal: 12,
+                        ), // Padding for option text
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment
                               .center, // Center the content vertically
@@ -223,9 +233,9 @@ class ViewOnlyPollWidget extends StatelessWidget {
                                 Text(
                                   option, // Display the option text
                                   style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight:
-                                          FontWeight.w500), // Option text style
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ), // Option text style
                                   overflow:
                                       TextOverflow.ellipsis, // Handle overflow
                                   maxLines: 1, // Limit to one line
@@ -234,12 +244,13 @@ class ViewOnlyPollWidget extends StatelessWidget {
                                 if (showPercentages) // Show percentage if enabled
                                   Text(
                                     '${percentage.toStringAsFixed(1)}%', // Display percentage
-                                    style: votedPercentageTextStyle ??
+                                    style:
+                                        votedPercentageTextStyle ??
                                         const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors
-                                                .black87), // Percentage text style
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ), // Percentage text style
                                   ),
                               ],
                             ),
@@ -253,31 +264,36 @@ class ViewOnlyPollWidget extends StatelessWidget {
             }),
 
             const Divider(
-                height: 24), // Divider between options and meta information
-
+              height: 24,
+            ), // Divider between options and meta information
             // Meta Information
             if (metaWidget != null)
               metaWidget!, // Display meta widget if provided
             const SizedBox(height: 8), // Space after meta information
-
             // Total Votes and Dates
             Text(
               '$totalVotes $votesText', // Display total votes
-              style: votesTextStyle ??
+              style:
+                  votesTextStyle ??
                   const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87), // Votes text style
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black87,
+                  ), // Votes text style
             ),
             Text(
               'Start : ${dateFormat.format(startDate)}', // Display start date
               style: const TextStyle(
-                  fontSize: 12, color: Colors.black54), // Start date style
+                fontSize: 12,
+                color: Colors.black54,
+              ), // Start date style
             ),
             Text(
               'Ends : ${dateFormat.format(endDate)}', // Display end date
               style: const TextStyle(
-                  fontSize: 12, color: Colors.black54), // End date style
+                fontSize: 12,
+                color: Colors.black54,
+              ), // End date style
             ),
           ],
         ),

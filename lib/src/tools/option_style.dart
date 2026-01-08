@@ -81,6 +81,9 @@ class OptionStyle {
   /// This color applies to the percentage value shown for non-selected options.
   final Color? otherTextPercentColor;
 
+  /// The padding for the content inside the poll option widget.
+  final EdgeInsetsGeometry? contentPadding;
+
   /// Creates a style configuration for poll options with customizable parameters.
   ///
   /// All parameters are optional, and the default styles will apply if not provided.
@@ -99,11 +102,12 @@ class OptionStyle {
     this.opacityLeadingVotedProgessColor = 0.2,
     this.selectedBorderColor,
     this.unselectedBorderColor,
-    this.borderWidth = 2,
-    this.progressBorderWidth = 0,
+    this.borderWidth,
+    this.progressBorderWidth,
     this.textSelectColor,
     this.votedBackgroundColor,
-    this.voteBorderProgressColor = Colors.blue,
-    this.otherTextPercentColor = Colors.black,
+    this.voteBorderProgressColor,
+    this.otherTextPercentColor,
+    this.contentPadding,
   });
 }
