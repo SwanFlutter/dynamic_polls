@@ -16,6 +16,8 @@ import 'package:dynamic_polls/src/view_only_poll_widget.dart';
 import 'package:dynamic_polls/src/widget/poll_options_widget.dart';
 import 'package:flutter/material.dart';
 
+export 'package:dynamic_polls/src/multi_select_dynamic_polls.dart';
+export 'package:dynamic_polls/src/multi_select_polls.dart';
 export 'package:dynamic_polls/src/tools/date_style.dart';
 export 'package:dynamic_polls/src/tools/model/user_data_model.dart';
 export 'package:dynamic_polls/src/tools/model/vote_data_model.dart';

@@ -37,4 +37,28 @@ class PollStorage {
   Future<void> clearVote(String pollId) async {
     await _box.remove(key: 'vote_$pollId');
   }
+
+  /// Saves multiple votes for a multi-select poll.
+  /// [pollId] is the unique identifier for the poll.
+  /// [optionIndices] is the list of selected option indices.
+  Future<void> saveMultipleVotes(String pollId, List<int> optionIndices) async {
+    await _box.write(key: 'multi_vote_$pollId', value: optionIndices);
+  }
+
+  /// Retrieves the saved multiple votes for a specific poll.
+  /// Returns the list of option indices if found, otherwise null.
+  List<int>? getMultipleVotes(String pollId) {
+    final data = _box.read<List>(key: 'multi_vote_$pollId');
+    return data?.cast<int>();
+  }
+
+  /// Checks if the user has voted in a multi-select poll.
+  bool hasMultipleVotes(String pollId) {
+    return _box.hasData(key: 'multi_vote_$pollId');
+  }
+
+  /// Removes multiple votes from a multi-select poll.
+  Future<void> clearMultipleVotes(String pollId) async {
+    await _box.remove(key: 'multi_vote_$pollId');
+  }
 }
