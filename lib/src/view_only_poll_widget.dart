@@ -267,8 +267,7 @@ class ViewOnlyPollWidget extends StatelessWidget {
               height: 24,
             ), // Divider between options and meta information
             // Meta Information
-            if (metaWidget != null)
-              metaWidget!, // Display meta widget if provided
+            ?metaWidget, // Display meta widget if provided
             const SizedBox(height: 8), // Space after meta information
             // Total Votes and Dates
             Text(
