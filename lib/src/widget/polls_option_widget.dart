@@ -219,10 +219,7 @@ class _PollsOptionWidgetState extends State<PollsOptionWidget>
 }
 
 class _SelectionIcon extends StatelessWidget {
-  const _SelectionIcon({
-    required this.isSelected,
-    required this.optionStyle,
-  });
+  const _SelectionIcon({required this.isSelected, required this.optionStyle});
 
   final bool isSelected;
   final OptionStyle? optionStyle;
@@ -239,8 +236,8 @@ class _SelectionIcon extends StatelessWidget {
       isSelected ? Icons.check_circle : Icons.circle_outlined,
       color: isSelected
           ? optionStyle?.selectionIconColor ??
-              optionStyle?.selectedBorderColor ??
-              Colors.blue
+                optionStyle?.selectedBorderColor ??
+                Colors.blue
           : optionStyle?.selectionIconColor ?? Colors.grey,
     );
   }

@@ -285,20 +285,27 @@ class _MultiSelectPollsState extends State<MultiSelectPolls> {
                                   // Selection icon
                                   Builder(
                                     builder: (context) {
-                                      final optionStyle = widget.allStyle?.optionStyle;
-                                      if (isSelected && optionStyle?.selectedIcon != null) {
+                                      final optionStyle =
+                                          widget.allStyle?.optionStyle;
+                                      if (isSelected &&
+                                          optionStyle?.selectedIcon != null) {
                                         return optionStyle!.selectedIcon!;
                                       }
-                                      if (!isSelected && optionStyle?.unselectedIcon != null) {
+                                      if (!isSelected &&
+                                          optionStyle?.unselectedIcon != null) {
                                         return optionStyle!.unselectedIcon!;
                                       }
                                       return Icon(
-                                        isSelected ? Icons.check_circle : Icons.circle_outlined,
+                                        isSelected
+                                            ? Icons.check_circle
+                                            : Icons.circle_outlined,
                                         color: isSelected
                                             ? optionStyle?.selectionIconColor ??
-                                                optionStyle?.selectedBorderColor ??
-                                                Colors.blue
-                                            : optionStyle?.selectionIconColor ?? Colors.grey,
+                                                  optionStyle
+                                                      ?.selectedBorderColor ??
+                                                  Colors.blue
+                                            : optionStyle?.selectionIconColor ??
+                                                  Colors.grey,
                                         size: 20,
                                       );
                                     },

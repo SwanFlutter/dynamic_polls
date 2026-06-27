@@ -118,7 +118,8 @@ class _RadioBottomPollOptionState extends State<RadioBottomPollOption>
                     : Icons.radio_button_unchecked,
                 color: widget.isSelected
                     ? optionStyle?.selectionIconColor ??
-                      optionStyle?.selectedBorderColor ?? Colors.blue
+                          optionStyle?.selectedBorderColor ??
+                          Colors.blue
                     : optionStyle?.selectionIconColor ?? Colors.grey,
               ),
             const SizedBox(width: 12),
