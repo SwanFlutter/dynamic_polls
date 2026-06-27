@@ -1,0 +1,26 @@
+name: dynamic_polls
+description: "A Customizable Polls for Flutter. Simple, easy to use and highly customizable."
+version: 0.0.8
+homepage: "https://github.com/SwanFlutter/dynamic_polls.git"
+repository: "https://github.com/SwanFlutter/dynamic_polls"
+issue_tracker: "https://github.com/SwanFlutter/dynamic_polls/issues"
+
+environment:
+  sdk: ^3.8.0
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.20.3
+  shared_preferences: ^2.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+
+flutter:
+
+
