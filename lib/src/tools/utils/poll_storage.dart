@@ -1,8 +1,8 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_x_storage/get_x_storage.dart';
 
 class PollStorage {
   static final PollStorage _instance = PollStorage._internal();
-  late SharedPreferences _prefs;
+  late GetXStorage _storage;
 
   factory PollStorage() {
     return _instance;
@@ -11,42 +11,42 @@ class PollStorage {
   PollStorage._internal();
 
   static Future<void> init() async {
-    _instance._prefs = await SharedPreferences.getInstance();
+    await GetXStorage.init();
+    _instance._storage = GetXStorage();
   }
 
   Future<void> saveVote(String pollId, int optionIndex) async {
-    await _prefs.setInt('vote_$pollId', optionIndex);
+    await _storage.write(key: 'vote_$pollId', value: optionIndex);
   }
 
   int? getVote(String pollId) {
-    return _prefs.getInt('vote_$pollId');
+    return _storage.read<int>(key: 'vote_$pollId');
   }
 
   bool hasVoted(String pollId) {
-    return _prefs.containsKey('vote_$pollId');
+    return _storage.hasData(key: 'vote_$pollId');
   }
 
   Future<void> clearVote(String pollId) async {
-    await _prefs.remove('vote_$pollId');
+    await _storage.remove(key: 'vote_$pollId');
   }
 
   Future<void> saveMultipleVotes(String pollId, List<int> optionIndices) async {
-    await _prefs.setStringList(
-      'multi_vote_$pollId',
-      optionIndices.map((e) => e.toString()).toList(),
+    await _storage.writeList<int>(
+      key: 'multi_vote_$pollId',
+      value: optionIndices,
     );
   }
 
   List<int>? getMultipleVotes(String pollId) {
-    final data = _prefs.getStringList('multi_vote_$pollId');
-    return data?.map((e) => int.parse(e)).toList();
+    return _storage.readList<int>(key: 'multi_vote_$pollId');
   }
 
   bool hasMultipleVotes(String pollId) {
-    return _prefs.containsKey('multi_vote_$pollId');
+    return _storage.hasData(key: 'multi_vote_$pollId');
   }
 
   Future<void> clearMultipleVotes(String pollId) async {
-    await _prefs.remove('multi_vote_$pollId');
+    await _storage.remove(key: 'multi_vote_$pollId');
   }
 }

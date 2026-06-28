@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.20.3
-  shared_preferences: ^2.5.0
+  get_x_storage: ^0.2.0
 
 dev_dependencies:
   flutter_test:
