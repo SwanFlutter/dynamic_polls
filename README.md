@@ -237,6 +237,8 @@ DynamicPolls(
 
 ### Using ValueNotifier
 
+**Note**: `VoteData` is a built-in class provided by the package—you don't need to create it yourself!
+
 ```dart
 final voteNotifier = ValueNotifier<VoteData>(
   VoteData(totalVotes: 0, optionVotes: {}, percentages: {}),
@@ -256,6 +258,8 @@ voteNotifier.addListener(() {
 ```
 
 ### Using StreamController
+
+**Note**: `VoteData` is a built-in class provided by the package—you don't need to create it yourself!
 
 ```dart
 final voteStream = StreamController<VoteData>.broadcast();
